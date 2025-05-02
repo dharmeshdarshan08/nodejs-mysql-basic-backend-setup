@@ -11,7 +11,6 @@ The project uses key technologies like:
 ⚙️ Setup & Configuration
 📥 Clone the Repository
 Clone the repository to your local machine:
-
 bash
 Copy
 git clone https://github.com/yourusername/nodejs+mysql-basic-backend-setup.git
@@ -20,6 +19,18 @@ cd nodejs+mysql-basic-backend-setup
 🐱 Install Dependencies
 Install all the required dependencies using npm:
 npm install
+
+💾 Database Setup
+Import Database in XAMPP
+1>   Start MySQL in XAMPP: Open XAMPP and start the MySQL server.
+Create a New Database:
+Open phpMyAdmin (usually accessible at http://localhost/phpmyadmin).
+2>   Create a new database with the name specified in your .env file under DB_NAME (e.g., project_db).
+3>   Import the Database:
+In phpMyAdmin, select the newly created database.
+Go to the Import tab and click Choose File to select the .sql file located in the db folder of this project.
+4>   Click Go: Click Go to import the database structure and data into MySQL.
+
 
 🔑 Set Up Environment Variables
 Create a .env file in the root directory and add the following configuration:
@@ -54,6 +65,9 @@ nodejs+mysql-basic-backend-setup/
 │   ├── authController.js      # Logic for user registration, login, etc.
 │   ├── settingsController.js  # Logic for settings management
 │   └── userController.js      # Logic for user-related operations
+│
+├── db/                        # Database setup and SQL files
+│   └── database.sql           # SQL file for database structure and data
 │
 ├── middleware/                # Middleware for authentication
 │   └── verifyToken.js         # Middleware for JWT token verification
