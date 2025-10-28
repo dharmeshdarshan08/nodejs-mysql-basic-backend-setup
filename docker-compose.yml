@@ -1,0 +1,21 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: testing_api
+    env_file:
+      - .env            # reuse your existing env (DB creds, JWT_SECRET, etc.)
+    environment:
+      PORT: "5050"      # ensure your app reads process.env.PORT
+      NODE_ENV: "production"
+    ports:
+      - "5050:5050"     # host:container — Nginx will keep talking to 127.0.0.1:5050
+    restart: unless-stopped
+    networks:
+      - testing_net
+    # if you need MySQL inside compose later, add depends_on: [ mysql ]
+
+networks:
+  testing_net:
+    driver: bridge
