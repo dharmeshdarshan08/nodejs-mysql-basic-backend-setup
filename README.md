@@ -52,41 +52,6 @@ Copy
 npm start
 The server will automatically reload on code changes!
 
-📂 Project Structure
-bash
-Copy
-nodejs+mysql-basic-backend-setup/
-│
-├── config/                    # Database and environment configuration
-│   ├── database.js            # DB connection setup
-│   └── db.config.js           # Configuration for DB
-│
-├── controller/                # Controller logic for API routes
-│   ├── authController.js      # Logic for user registration, login, etc.
-│   ├── settingsController.js  # Logic for settings management
-│   └── userController.js      # Logic for user-related operations
-│
-├── db/                        # Database setup and SQL files
-│   └── database.sql           # SQL file for database structure and data
-│
-├── middleware/                # Middleware for authentication
-│   └── verifyToken.js         # Middleware for JWT token verification
-│
-├── node_modules/              # Dependencies
-│
-├── routes/                    # API route definitions
-│   ├── authRoutes.js          # Routes for user authentication
-│   ├── settingsRoutes.js      # Routes for user settings
-│   └── userRoutes.js          # Routes for user operations
-│
-├── utils/                     # Utility functions
-│   └── email.js               # Utility for sending OTP emails
-│
-├── .env                       # Environment variables
-├── index.js                   # Main entry point for the backend API
-└── package.json               # Project dependencies and scripts
-└── swagger.json               # Swagger API documentation definition
-
 💻 Swagger UI Documentation
 You can view and test the API directly using Swagger UI by visiting:
 http://localhost:3000/api-docs
