@@ -1,0 +1,53 @@
+name: Deploy to Server (Build on Host)
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch: {}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚪 SSH into server & deploy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script_stop: true
+          script: |
+            set -euo pipefail
+
+            echo "[1/6] Go to project dir"
+            cd "${PROJECT_DIR:-/var/nodejs-mysql-basic-backend-setup}"
+
+            echo "[2/6] Fetch latest code (HARD sync to origin/main)"
+            git fetch --all --prune
+            git reset --hard origin/main
+
+            echo "[3/6] Build docker image"
+            docker compose build
+
+            echo "[4/6] Up container"
+            docker compose up -d
+
+            echo "[5/6] Health check (container port 5050)"
+            for i in {1..15}; do
+              sleep 2
+              if curl -fsS http://127.0.0.1:5050/health >/dev/null; then
+                echo "Health OK"
+                break
+              fi
+              echo "Waiting for health... ($i)"
+              if [ "$i" = "15" ]; then
+                echo "❌ Health failed. Showing logs:"
+                docker compose logs --no-color | tail -n 200 || true
+                exit 1
+              fi
+            done
+
+            echo "[6/6] Nginx 8088 check (optional)"
+            curl -fsS http://127.0.0.1:8088/health >/dev/null && echo "Nginx OK" || echo "Nginx health skipped/failed"
+
+            echo "✅ Deploy complete"
