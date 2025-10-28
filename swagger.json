@@ -7,11 +7,23 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000/api",
+      "url": "http://localhost:5050/api",
       "description": "Development server"
     }
   ],
   "paths": {
+    "/test": {
+      "get": {
+        "summary": "Get all settings",
+        "tags": ["Testing"],
+        "security": [{"bearerAuth": []}],
+        "responses": {
+          "200": {
+            "description": "Testing successfully"
+          }
+        }
+      }
+    },
     "/register": {
       "post": {
         "summary": "Register a new user",
@@ -182,6 +194,7 @@
         }
       }
     }
+    
   },
   "components": {
     "securitySchemes": {

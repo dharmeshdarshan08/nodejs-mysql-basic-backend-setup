@@ -26,3 +26,6 @@ exports.getSettings = async (req, res) => {
     }
   });
 }; 
+exports.test = async (req, res) => {
+ return res.send({status: true,message: "Testing Successful " });
+}; 
