@@ -27,5 +27,5 @@ exports.getSettings = async (req, res) => {
   });
 }; 
 exports.test = async (req, res) => {
- return res.send({status: true,message: "Testing Successful " });
+ return res.send({status: true,message: "Testing for cicd Successful " });
 }; 
